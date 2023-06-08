@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Doorbell</title>
+    <link rel="stylesheet" href="dcss.css">
+</head>
+<body>
+<div class="container">
+
+
+
+
+
+    <nav class="nav">
+        <a href="#besch" alt="beschreibung">Beschreibung</a>
+
+        <a href="#hardw" alt="hardware">Hardware</a>
+
+        <a href="#conf" alt="Konfiguration">Konfiguration</a>
+
+        <a href="#script" alt="Script">Code</a><br>
+    </nav>
+
+
+    <div id="spacer"></div>
+
+
+
+    <div class="main">
+        <div class="title">
+            <h1>Smart Doorbell</h1>
+        </div>
+        <div class="beschreibung" id="besch">
+            <p>Das Projekt "Smart Doorbell" beinhaltet die Implementierung einer Türklingel mit Video- und Audioaufnahme. Sobald die Türklingel betätigt wird, wird ein Videoanruf gestartet und die Aufnahme von Audio und Video aktiviert. Zusätzlich kann optional eine Push-Notification versendet werden. </p>
+        </div>
+        <div class="hardware" id="hardw">
+            <table>
+                <tr>
+                    <td class="tborder">Raspberry Pi 400</td>
+                    <td><img class="bild" src="https://hardzone.es/app/uploads-hardzone.es/2020/12/RASPBERRY-PI-PORTADA.jpg" alt="Raspberry Pi 400"></td>
+                </tr>
+                <tr>
+                    <td class="tborder">LCD Screen/Monitor</td>
+                    <td><img class="bild" src="screen.png" alt="Screen"></td>
+                </tr>
+                <tr>
+                    <td class="tborder">Kamera</td>
+                    <td><img class="bild" src="https://m.media-amazon.com/images/I/51rExn3HX+L._AC_SY300_SX300_.jpg" alt="Kamera"></td>
+                </tr>
+                <tr>
+                    <td class="tborder">Headset/Speaker+Mikrophone</td>
+                    <td><img class="bild" src="https://thumbs.static-thomann.de/thumb//orig/pics/prod/507897.webp" alt="headset"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="main2 main" id="conf">
+        
+            <h2>Konfiguration</h2>
+            <p class="p2">Installieren Sie den App <a href="https://www.pushbullet.com/" alt="PushBullet Website" target="_blank">PushBullet</a> auf ihrem Smartphone und registrieren Sie sich. Dann holen Sie ihr Account-API. Das finden Sie unter ihre Account einstellungen.</p>
+            <img class="bildP" src="pushbullet.png" alt="pusbullet"><img class="api" src="api.png" alt="API">
+            
+            <div class="libraries">
+                <p class="u p2">Update & Upgrade</p>
+                    <div class="codel">
+                        <p class="white">sudo&nbsp;</p><p class="red">apt&nbsp;</p><p class="blue">update</p>
+                    </div>
+                    <br>
+                    <div class="codel">
+                        <p class="white">sudo&nbsp;</p><p class="red">apt&nbsp;</p><p class="blue">upgrade</p>
+                    </div>
+                <p class="u p2">OpenCV(cv2)</p>
+                    <div class="codel">
+                        <p class="white">pip&nbsp;</p><p class="red">install&nbsp;</p><p class="blue">opencv-python</p>
+                    </div>
+                <p class="u p2">PushBullet</p>
+                    <div class="codel">
+                        <p class="white">pip&nbsp;</p><p class="red">install&nbsp;</p><p class="blue">pushbullet.py</p>
+                    </div>
+                <p class="u p2">USB Kamera</p>
+                    <div class="codel">
+                        <p class="white">sudo&nbsp;</p><p class="red">apt install&nbsp;</p><p class="blue">fswebcam</p>
+                    </div>
+                <p class="u p2">Kamera einstellen. Interfacing Options --> Camera. Wählen Sie "ja" und dann "finish"</p>
+                    <div class="codel">
+                        <p class="white">sudo&nbsp;</p><p class="red">raspi-config&nbsp;</p>
+                    </div>
+                <p class="u p2">USB Mikrophone/Headphone</p>
+                    <div class="codel">
+                        <p class="white">sudo&nbsp;</p><p class="red">apt&nbsp;install&nbsp;</p><p class="blue">alsa-utils</p>
+                    </div>
+            </div>
+
+        </div>
+
+        
+        <div class="main main2" id="script">
+            
+                
+
+
+
+                <h2>Code/Script</h2>
+                <p class="p2">Erstellen Sie ein Datei für den Code (z.B doorbell.py) und geben Sie diesem Code rein oder laden Sie Datei (<a href="doorbell.py" download>doorbell.py Herrunterladen.</a>) herrunter.</p>
+                
+                    <pre class="sc">
+    import time 
+
+    import os 
+
+    import subprocess 
+
+    import cv2 
+
+    import webbrowser 
+
+    import pushbullet 
+
+    import uuid 
+
+                        
+
+    # Install required libraries
+
+
+
+    # User Parameters 
+
+    JITSI_ID = None  # Set your custom meeting ID here/None=Random 
+
+    RING_SFX_PATH = None 
+
+    ENABLE_PUSH = True 
+
+    PUSHBULLET_API_KEY = 'PushBullet API'  # Type in your own API
+
+                        
+
+    # Program 
+
+                        
+
+    def send_push_notification(chat_url, enable_push): 
+
+        if enable_push: 
+
+                                pb = pushbullet.Pushbullet(PUSHBULLET_API_KEY) 
+
+                                push = pb.push_link("Visitor Notification", "A visitor is waiting at the doorbell.", chat_url) 
+
+                                print("Push notification sent.") 
+
+                        
+
+    def ring_doorbell(): 
+
+        SoundEffect(RING_SFX_PATH).play() 
+
+                        
+
+        chat_id = JITSI_ID if JITSI_ID else str(uuid.uuid4()) 
+
+        video_chat = VideoChat(chat_id) 
+
+        send_push_notification(video_chat.get_chat_url(), ENABLE_PUSH) 
+
+        webbrowser.get().open(video_chat.get_chat_url()) 
+
+                        
+
+        video_chat.start() 
+
+                        
+
+    class SoundEffect: 
+
+        def __init__(self, filepath): 
+
+            self.filepath = filepath 
+
+                        
+
+        def play(self): 
+
+            if self.filepath: 
+
+                subprocess.Popen(["aplay", self.filepath]) 
+
+                        
+
+    class VideoChat: 
+
+        def __init__(self, chat_id): 
+
+            self.chat_id = chat_id 
+
+            self.camera = None 
+
+                        
+
+        def get_chat_url(self): 
+
+            return "https://meet.jit.si/%s" % self.chat_id 
+
+                        
+
+        def start(self): 
+
+            if not self.camera and self.chat_id: 
+
+                self.camera = cv2.VideoCapture(0)  # Use appropriate camera index if multiple cameras are connected 
+
+                self.camera.set(cv2.CAP_PROP_FRAME_WIDTH, 640) 
+
+                self.camera.set(cv2.CAP_PROP_FRAME_HEIGHT, 480) 
+
+                self.camera.set(cv2.CAP_PROP_FPS, 30) 
+
+                time.sleep(2)  # Allow camera to warm up 
+
+            else: 
+
+                print("Can't start video chat -- already started or missing chat id") 
+
+                        
+
+        def end(self): 
+
+            if self.camera: 
+
+                self.camera.release() 
+
+                self.camera = None 
+
+                        
+
+    def setup(): 
+
+        print("Starting Doorbell...") 
+
+        ring_doorbell() 
+
+                        
+
+    def cleanup(): 
+
+        pass 
+
+                        
+
+    if __name__ == '__main__': 
+
+        setup() 
+
+                        
+
+        try: 
+
+            while True: 
+
+            time.sleep(0.1) 
+
+        except KeyboardInterrupt: 
+
+            pass 
+
+        finally: 
+
+            cleanup()
+                    </pre>
+                
+            
+        </div>
+    
+</div>
+
+</body>
+</html>

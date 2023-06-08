@@ -1,0 +1,227 @@
+
+html{
+    scroll-behavior: smooth;
+}
+
+
+
+body {
+    background-color: #151515;
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 50px;
+}
+
+.nav{
+    height: 4vh;
+    width: 100%;
+    padding: 20px;
+    flex: 0 0 auto;
+    background-color: #9c7979;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    z-index: 3;
+    overflow: hidden;
+    background-color: #212121;
+    gap: 15px;
+
+}
+
+#spacer{
+    width: 100%;
+    height: 10vh;
+}
+
+.nav a{
+    padding: 10px;
+    text-decoration: none;
+    color: white;
+    text-transform: uppercase;
+    border-bottom: #ffae00 2px solid;
+    background: linear-gradient(#ffae0000,#ffae0000);
+    transition: all 1s ease;
+    border-radius: 10px;
+}
+
+.nav a:hover{
+    background-image: linear-gradient(#ffae0000,#ffae00aa);
+}
+
+.main{
+    flex: 1 1 auto;
+    padding: 40px;
+    width: 50vw;
+    margin-top: 2vh;
+    background-color: #252525;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+
+}
+
+.main h1{
+    margin: 0;
+    color: white;
+
+}
+
+.main2 h2{
+    margin: 0;
+    color: white;
+}
+
+.main2 .p2{
+    color: white;
+    margin: 10px 0;
+    
+} 
+
+.main2 img{
+    margin: 20px;
+
+}
+
+
+
+
+.main .beschreibung p{
+    color: white;
+    margin: 20px;
+}
+
+
+.main table{
+    color: white;
+    border-radius: 1000px;
+    padding: 0px;
+}
+
+
+table tr:nth-child(2) td, table tr:nth-child(4) td{
+    /* border-radius: 10px; */
+    padding: 10px;
+    border: none;
+    background-color: #5bb5ee;
+
+}
+
+
+table tr:nth-child(1) td, table tr:nth-child(3) td{
+    padding: 10px;
+    border: none;
+    background-color: #6bbceb;
+
+}
+
+
+
+.title{
+    text-align: center;
+}
+
+.hardware {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    width: fit-content;
+    border-radius: 20px;
+    background-color: #ffae00;
+    overflow: hidden;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+td {
+    border: black 1px solid;
+}
+
+.bildP {
+    height: 200px;
+    width: auto !important;
+}
+
+.api {
+    height: 200px;
+    width: 750px;
+}
+
+.bild {
+    height: 70px;
+    width: auto !important;
+}
+
+.a {
+    display: inline-block;
+}
+
+.codel {
+    background-color: #474545;
+    border: 1px solid #CCCCCC;
+    border-radius: 5px;
+    width: 200px;
+    text-align: center;
+    padding: 20px;
+}
+
+.white {
+    color: rgb(185, 183, 183);
+    display: inline;
+}
+
+.red {
+    color: rgb(159, 65, 65);
+    display: inline;
+}
+
+.blue {
+    color: rgb(134, 116, 221);
+    display: inline;
+}
+
+.u {
+    font-weight: bold;
+}
+
+
+
+.sc {
+    color: white;
+    width: 100%;
+    background-color: #363636;
+    padding: 20px;
+    border-radius: 10px;
+    white-space: pre-wrap;
+
+}
+
+.libraries{
+    align-self: flex-start;
+}
+
+
+.test::before{
+
+    content: "sudo";
+    color: red;
+
+}
+
+.test::after{
+
+    content: "fswebcam";
+    color: #007ec7;
+
+}
