@@ -27,16 +27,17 @@
 
     <div id="spacer"></div>
 
-
+    <div  id="besch"></div>
 
     <div class="main">
         <div class="title">
             <h1>Smart Doorbell</h1>
         </div>
-        <div class="beschreibung" id="besch">
+        <div id="hardw"></div>
+        <div class="beschreibung">
             <p>Das Projekt "Smart Doorbell" beinhaltet die Implementierung einer Türklingel mit Video- und Audioaufnahme. Sobald die Türklingel betätigt wird, wird ein Videoanruf gestartet und die Aufnahme von Audio und Video aktiviert. Zusätzlich kann optional eine Push-Notification versendet werden. </p>
         </div>
-        <div class="hardware" id="hardw">
+        <div class="hardware">
             <table>
                 <tr>
                     <td class="tborder">Raspberry Pi 400</td>
@@ -56,9 +57,10 @@
                 </tr>
             </table>
         </div>
+        <div  id="conf"></div>
     </div>
 
-    <div class="main2 main" id="conf">
+    <div class="main2 main">
         
             <h2>Konfiguration</h2>
             <p class="p2">Installieren Sie den App <a href="https://www.pushbullet.com/" alt="PushBullet Website" target="_blank">PushBullet</a> auf ihrem Smartphone und registrieren Sie sich. Dann holen Sie ihr Account-API. Das finden Sie unter ihre Account einstellungen.</p>
@@ -94,20 +96,17 @@
                         <p class="white">sudo&nbsp;</p><p class="red">apt&nbsp;install&nbsp;</p><p class="blue">alsa-utils</p>
                     </div>
             </div>
-
+            <div id="script"></div>
         </div>
 
         
-        <div class="main main2" id="script">
+        <div class="main main2">
             
+
+    <h2>Code/Script</h2>
+    <p class="p2">Erstellen Sie ein Datei für den Code (z.B doorbell.py) und geben Sie diesem Code rein oder laden Sie Datei (<a href="doorbell.py" download>doorbell.py Herrunterladen.</a>) herrunter.</p>
                 
-
-
-
-                <h2>Code/Script</h2>
-                <p class="p2">Erstellen Sie ein Datei für den Code (z.B doorbell.py) und geben Sie diesem Code rein oder laden Sie Datei (<a href="doorbell.py" download>doorbell.py Herrunterladen.</a>) herrunter.</p>
-                
-                    <pre class="sc">
+    <pre class="sc">
     import time 
 
     import os 
